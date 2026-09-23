@@ -15,7 +15,7 @@
                 extend: {
                     colors: {
                         brand: {
-                            darkred: '#600000',
+                            darkred: '#f20303',
                             red: '#A80916',
                             brightred: '#D90429',
                             gold: '#FFB703',
@@ -45,11 +45,11 @@
         }
 
         .hero-gradient {
-            background: linear-gradient(135deg, #600000 0%, #A80916 50%, #400000 100%);
+            background: linear-gradient(135deg, #950000 0%, #c80213 50%, #950000 100%);
         }
 
         .glass-header {
-            background: rgba(96, 0, 0, 0.96);
+            background: rgba(215, 2, 2, 0.96);
             backdrop-filter: blur(10px);
         }
 
@@ -66,7 +66,7 @@
 <body class="text-gray-800 antialiased pb-28 selection:bg-brand-gold selection:text-brand-dark">
 
     <div class="bg-brand-dark text-brand-yellow text-xs sm:text-sm py-2 px-4 text-center font-bold border-b border-brand-gold/20">
-        أهلاً بكم في مطعم أبو يحيى - خدمة المبيعات والتوصيل المباشر | هاتف وواتساب: 01224213912
+        أهلاً بكم في مطعم أبو يحيى 
     </div>
 
     <header class="sticky top-0 z-40 glass-header text-white border-b border-brand-gold/30 shadow-xl">
@@ -117,7 +117,7 @@
                     </h1>
 
                     <p class="text-sm sm:text-base text-gray-200 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium">
-                        اختر فرعك المفضل للطلب منه مباشرة، حدد وجباتك، أضف ملحوظاتك الخاصة وإضافاتك لكل صنف، وأرسل الطلب مباشرة إلى المطعم عبر الواتساب.
+                        اختر فرعك المفضل للطلب منه مباشرة، حدد وجباتك، أضف ملحوظاتك الخاصة وإضافاتك لكل صنف، وأرسل الطلب.
                     </p>
 
                     <!-- Branch Selector Fast Buttons -->
@@ -251,7 +251,7 @@
                     مسح الكل
                 </button>
                 <button onclick="sendOrderToWhatsApp()" class="flex-1 sm:flex-none bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white font-black px-6 py-3 rounded-xl text-base shadow-lg transition-all text-center">
-                    إرسال الطلب عبر الواتساب (01224213912)
+                    إرسال الطلب
                 </button>
             </div>
 
@@ -264,7 +264,7 @@
                 <img src="10.png" alt="شعار أبو يحيى" class="w-10 h-10 rounded-full border border-brand-gold" onerror="this.onerror=null; this.src='https://placehold.co/100x100/A80916/FFFFFF?text=أبو+يحيى';">
                 <span class="heading-font font-black text-lg text-white">مطعم أبو يحيى - فول بالزبدة وفلافل</span>
             </div>
-            <p class="text-xs text-gray-400">فرع الأردنية | فرع الموقف الجديد | هاتف التوصيل والطلبات: 01224213912</p>
+            <p class="text-xs text-gray-400">فرع الأردنية | فرع الموقف الجديد </p>
             <p class="text-xs text-gray-500">جميع الحقوق محفوظة © <span id="current-year"></span></p>
         </div>
     </footer>
