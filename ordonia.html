@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مطعم أبو يحيى - فرع الأردنية</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            darkred: '#f20303',
+                            red: '#A80916',
+                            brightred: '#D90429',
+                            gold: '#FFB703',
+                            yellow: '#FFD166',
+                            cream: '#FFF9F5',
+                            dark: '#1F0203'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background-color: #FFF9F5;
+            overflow-x: hidden;
+        }
+        .heading-font { font-family: 'Cairo', sans-serif; }
+        .hero-gradient { background: linear-gradient(135deg, #950000 0%, #c80213 50%, #950000 100%); }
+        .glass-header { background: rgba(215, 2, 2, 0.96); backdrop-filter: blur(10px); }
+        .slide-fade { transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased pb-28 selection:bg-brand-gold selection:text-brand-dark">
+
+    <div class="bg-brand-dark text-brand-yellow text-xs sm:text-sm py-2 px-4 text-center font-bold border-b border-brand-gold/20">
+        أهلاً بكم في مطعم أبو يحيى - فرع الأردنية
+    </div>
+
+    <header class="sticky top-0 z-40 glass-header text-white border-b border-brand-gold/30 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-14 h-14 rounded-full p-0.5 bg-gradient-to-r from-brand-gold via-yellow-300 to-brand-gold shadow-md">
+                        <img src="10.png" alt="شعار مطعم أبو يحيى" class="w-full h-full object-cover rounded-full bg-brand-darkred" onerror="this.onerror=null; this.src='https://placehold.co/100x100/A80916/FFFFFF?text=أبو+يحيى';">
+                    </div>
+                    <div>
+                        <h1 class="heading-font font-black text-xl sm:text-2xl text-white leading-tight">مطعم أبو يحيى</h1>
+                        <p class="text-xs text-brand-yellow font-bold">فرع الأردنية - فول بالزبدة وفلافل</p>
+                    </div>
+                </a>
+
+                <nav class="hidden md:flex items-center space-x-6 space-x-reverse text-sm font-bold">
+                    <a href="#hero" class="text-brand-yellow hover:text-white transition-colors py-2 border-b-2 border-brand-gold">الرئيسية</a>
+                    <a href="#gallery" class="hover:text-brand-gold transition-colors py-2">معرض الصور</a>
+                    <a href="#menu-section" class="hover:text-brand-gold transition-colors py-2">المنيو</a>
+                </nav>
+
+                <div class="text-left">
+                    <a href="tel:01224213912" class="bg-brand-gold hover:bg-yellow-400 text-brand-dark font-black px-4 py-2 rounded-xl text-xs sm:text-sm shadow transition-all block text-center">
+                        012 242 139 12
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero" class="relative hero-gradient text-white py-10 lg:py-14">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-6 text-center lg:text-right space-y-5">
+                    <div class="inline-block bg-brand-gold/20 border border-brand-gold/40 rounded-full px-4 py-1 text-brand-yellow font-bold text-xs sm:text-sm">
+                        📍 فرع الأردنية
+                    </div>
+
+                    <h1 class="heading-font text-3xl sm:text-5xl font-black leading-tight text-white">
+                        مطعم <span class="text-brand-yellow">أبو يحيى</span>
+                        <span class="block text-xl sm:text-3xl text-gray-200 mt-2 font-bold">منيو فرع الأردنية</span>
+                    </h1>
+
+                    <p class="text-sm sm:text-base text-gray-200 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium">
+                        حدد وجباتك، أضف ملحوظاتك الخاصة وإضافاتك لكل صنف، وأرسل الطلب مباشرة إلى الفرع عبر الواتساب.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="relative mx-auto max-w-lg lg:max-w-none rounded-2xl p-2 bg-gradient-to-tr from-brand-gold via-red-500 to-brand-gold shadow-2xl">
+                        <div class="overflow-hidden rounded-xl bg-brand-dark">
+                            <img src="12.png" alt="بانر مطعم أبو يحيى" class="w-full h-auto object-cover rounded-xl" onerror="this.onerror=null; this.src='12.jpg';">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-12 bg-brand-cream border-t border-b border-brand-gold/20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <h2 class="heading-font text-2xl sm:text-3xl font-black text-brand-dark mb-2">معرض صور فرع الأردنية</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-brand-red via-brand-gold to-brand-red mx-auto rounded-full"></div>
+            </div>
+
+            <div class="relative rounded-2xl overflow-hidden shadow-xl border-2 border-brand-gold/60 bg-brand-dark p-2">
+                <div class="relative h-[260px] sm:h-[400px] md:h-[480px] w-full overflow-hidden rounded-xl flex items-center justify-center bg-black">
+                    <img id="slideshow-image" src="20.png" alt="معرض الصور" class="w-full h-full object-contain slide-fade" onerror="handleImageError(this)">
+                    <div class="absolute top-3 right-3 bg-brand-dark/80 text-brand-gold text-xs font-black px-3 py-1 rounded-full border border-brand-gold/40">
+                        <span id="slide-number">1</span> / 11
+                    </div>
+                    <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-brand-gold/90 hover:bg-brand-gold text-brand-dark font-black px-3 py-2 rounded-xl text-xs sm:text-sm shadow-md">السابق</button>
+                    <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-brand-gold/90 hover:bg-brand-gold text-brand-dark font-black px-3 py-2 rounded-xl text-xs sm:text-sm shadow-md">التالي</button>
+                </div>
+                <div class="flex items-center justify-center gap-1.5 mt-3 py-1" id="dots-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu-section" class="py-12 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <span class="inline-block px-3 py-1 bg-brand-gold/20 text-brand-dark font-black text-xs rounded-full mb-2">📍 فرع الأردنية</span>
+                <h2 class="heading-font text-3xl sm:text-4xl font-black text-brand-dark">قائمة الأصناف والطلب الإلكتروني</h2>
+            </div>
+
+            <div class="flex overflow-x-auto gap-2 pb-4 mb-6 custom-scrollbar" id="category-tabs"></div>
+            <div id="menu-items-grid"></div>
+        </div>
+    </section>
+
+    <div id="cart-bar" class="fixed bottom-0 inset-x-0 z-50 bg-brand-dark border-t-4 border-brand-gold text-white shadow-2xl p-3 sm:p-4">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center justify-between w-full sm:w-auto gap-6 text-right">
+                <div>
+                    <span class="text-xs text-brand-yellow font-bold block">الفرع: <strong class="text-white">فرع الأردنية</strong></span>
+                    <span class="text-sm font-black text-white">الأصناف: <span id="bar-total-items" class="text-brand-gold">0</span></span>
+                </div>
+                <div class="border-r border-white/20 pr-6">
+                    <span class="text-xs text-gray-300 block">الإجمالي</span>
+                    <span class="text-xl font-black text-brand-yellow" id="bar-total-price">0 ج.م</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <button onclick="clearCurrentOrder()" class="bg-white/10 hover:bg-white/20 text-xs text-gray-200 px-3 py-3 rounded-xl font-bold">مسح</button>
+                <button onclick="sendOrderToWhatsApp()" class="flex-1 sm:flex-none bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white font-black px-6 py-3 rounded-xl text-base shadow-lg text-center">إرسال الطلب</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const slideImages = ['20.png', '21.png', '22.png', '23.png', '24.png', '25.png', '26.png', '27.png', '28.png', '29.png', '30.png'];
+        let currentSlideIndex = 0, slideTimer = null, activeCategory = 'الكل', orderState = {};
+
+        const menuData = [
+            { id: 1, name: 'سندوتش فول بالزبدة البلدي', category: 'أطباق وسندوتشات الفول', price: 15, desc: 'فول مدمس طازج بالزبدة البلدي الصافية' },
+            { id: 2, name: 'سندوتش فول بالزيت الحار', category: 'أطباق وسندوتشات الفول', price: 12, desc: 'فول مدمس مميز بالزيت الحار' },
+            { id: 3, name: 'سندوتش فول بالسمنة البلدي', category: 'أطباق وسندوتشات الفول', price: 15, desc: 'فول ساخن بالسمنة البلدي الصافية' },
+            { id: 4, name: 'سندوتش فول بالصلصة والخل والثوم', category: 'أطباق وسندوتشات الفول', price: 14, desc: 'صلصة طماطم مسبكة بخلطة الثوم والخل' },
+            { id: 5, name: 'علبة فول بالزبدة البلدي (كبير)', category: 'أطباق وسندوتشات الفول', price: 35, desc: 'علبة فول عائلي مدمس بالزبدة البلدي' },
+            { id: 6, name: 'سندوتش فلافل أبو يحيى المخصوص', category: 'الفلافل الطازجة', price: 12, desc: 'فلافل مقرمشة مع السلطة الخضراء والطحينة' },
+            { id: 7, name: 'سندوتش فلافل محشية كيروش', category: 'الفلافل الطازجة', price: 15, desc: 'حشوة شطة وبصل وتوابل خاصة' },
+            { id: 8, name: 'قرص فلافل محشي (كبير)', category: 'الفلافل الطازجة', price: 5, desc: 'قرص فلافل محشو بصل وشطة وسمسم' },
+            { id: 9, name: 'قرص فلافل عادي (صغير)', category: 'الفلافل الطازجة', price: 2, desc: 'فلافل ذهبية مقرمشة بالسمسم' },
+            { id: 10, name: 'سندوتش فلافل بالبيض المسلوق', category: 'الفلافل الطازجة', price: 18, desc: 'فلافل مقرمشة مع شرائح البيض والسلطة' },
+            { id: 11, name: 'سندوتش بطاطس صوابع مقلية', category: 'البطاطس والمقبلات', price: 15, desc: 'بطاطس مقرمشة ذهبية' },
+            { id: 12, name: 'سندوتش بطاطس بوري مهروسة بالزبدة', category: 'البطاطس والمقبلات', price: 15, desc: 'بطاطس مهروسة ناعمة بخلطة الزبدة البلدي' },
+            { id: 13, name: 'سندوتش باذنجان مقلي بالمقادير', category: 'البطاطس والمقبلات', price: 12, desc: 'باذنجان مقلي مع دقة الثوم والخل' },
+            { id: 14, name: 'سندوتش مسقعة بالخل والثوم', category: 'البطاطس والمقبلات', price: 14, desc: 'مسقعة مصري أصيلة بطعم مميز' },
+            { id: 15, name: 'سندوتش بابا غنوج', category: 'البطاطس والمقبلات', price: 12, desc: 'باذنجان مشوي بالطحينة والليمون' },
+            { id: 16, name: 'طبق مشكل أبو يحيى', category: 'الأطباق والوجبات', price: 45, desc: 'طبق كامل مشكل لجميع الأصناف الرئيسية' },
+            { id: 17, name: 'طبق بطاطس مهروسة بالزبدة', category: 'الأطباق والوجبات', price: 30, desc: 'طبق بطاطس غني بالزبدة البلدي' },
+            { id: 18, name: 'علبة طحينة خام', category: 'الأطباق والوجبات', price: 15, desc: 'طحينة سمسم ناصعة الجودة' },
+            { id: 19, name: 'باكيت مخلل مشكل بلدي', category: 'الأطباق والوجبات', price: 10, desc: 'تشكيلة مخللات بلدي طازجة' }
+        ];
+
+        const categories = ['الكل', 'أطباق وسندوتشات الفول', 'الفلافل الطازجة', 'البطاطس والمقبلات', 'الأطباق والوجبات'];
+
+        function initDots() {
+            const container = document.getElementById('dots-container');
+            container.innerHTML = '';
+            slideImages.forEach((_, idx) => {
+                const btn = document.createElement('button');
+                btn.onclick = () => goToSlide(idx);
+                btn.className = `h-2 rounded-full transition-all ${idx === 0 ? 'bg-brand-gold w-6' : 'bg-white/40 w-2'}`;
+                btn.id = `dot-${idx}`;
+                container.appendChild(btn);
+            });
+        }
+
+        function showSlide(index) {
+            if (index >= slideImages.length) currentSlideIndex = 0;
+            else if (index < 0) currentSlideIndex = slideImages.length - 1;
+            else currentSlideIndex = index;
+
+            const imgEl = document.getElementById('slideshow-image');
+            imgEl.style.opacity = '0';
+            setTimeout(() => { imgEl.src = slideImages[currentSlideIndex]; imgEl.style.opacity = '1'; }, 100);
+            document.getElementById('slide-number').innerText = currentSlideIndex + 1;
+            slideImages.forEach((_, idx) => {
+                const dot = document.getElementById(`dot-${idx}`);
+                if (dot) dot.className = idx === currentSlideIndex ? 'bg-brand-gold w-6 h-2 rounded-full' : 'bg-white/40 h-2 w-2 rounded-full';
+            });
+            resetTimer();
+        }
+
+        function nextSlide() { showSlide(currentSlideIndex + 1); }
+        function prevSlide() { showSlide(currentSlideIndex - 1); }
+        function goToSlide(idx) { showSlide(idx); }
+        function resetTimer() { clearInterval(slideTimer); slideTimer = setInterval(nextSlide, 3500); }
+        function handleImageError(img) { img.src = `https://placehold.co/800x500/600000/FFFFFF?text=صورة+مطعم+أبو+يحيى`; }
+
+        function renderCategories() {
+            const container = document.getElementById('category-tabs');
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setCategory('${cat}')" class="whitespace-nowrap px-4 py-2 rounded-xl text-xs sm:text-sm font-black ${
+                    activeCategory === cat ? 'bg-brand-dark text-brand-gold shadow' : 'bg-gray-100 text-gray-700'
+                }">${cat}</button>
+            `).join('');
+        }
+
+        function setCategory(cat) { activeCategory = cat; renderCategories(); renderMenuItems(); }
+
+        function renderMenuItems() {
+            const container = document.getElementById('menu-items-grid');
+            const filtered = activeCategory === 'الكل' ? menuData : menuData.filter(item => item.category === activeCategory);
+
+            container.innerHTML = `
+                <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right border-collapse">
+                            <thead>
+                                <tr class="bg-brand-dark text-white text-xs sm:text-sm">
+                                    <th class="py-3.5 px-4 font-bold border-b border-brand-gold/30">الصنف والوصف</th>
+                                    <th class="py-3.5 px-4 font-bold text-center border-b border-brand-gold/30 w-32 sm:w-40">الكمية (+ / -)</th>
+                                    <th class="py-3.5 px-4 font-bold border-b border-brand-gold/30 min-w-[180px]">مربع الإضافات والملحوظات</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                ${filtered.map(item => {
+                                    const itemState = orderState[item.id] || { quantity: 0, notes: '' };
+                                    const qty = itemState.quantity, notes = itemState.notes;
+                                    
+                                    return `
+                                        <tr class="hover:bg-brand-cream/40 transition-colors ${qty > 0 ? 'bg-brand-cream/60' : ''}">
+                                            <!-- عمود الصنف -->
+                                            <td class="py-3 px-4 align-middle">
+                                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                                                    <span class="heading-font font-bold text-sm sm:text-base text-brand-dark">${item.name}</span>
+                                                    <span class="inline-block bg-brand-red/10 text-brand-red font-black text-xs px-2.5 py-1 rounded-md w-fit">${item.price} ج.م</span>
+                                                </div>
+                                                ${item.desc ? `<p class="text-[11px] sm:text-xs text-gray-500 mt-0.5">${item.desc}</p>` : ''}
+                                            </td>
+
+                                            <!-- عمود الكمية مع أزرار + و - -->
+                                            <td class="py-3 px-4 align-middle text-center">
+                                                <div class="flex items-center justify-center gap-1.5 bg-gray-50 p-1.5 rounded-xl border border-gray-200 w-fit mx-auto">
+                                                    <button onclick="updateQuantity(${item.id}, -1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gray-200 hover:bg-red-600 hover:text-white text-gray-800 font-black text-base flex items-center justify-center transition-colors">-</button>
+                                                    <span class="font-black text-sm sm:text-base text-brand-dark w-6 text-center">${qty}</span>
+                                                    <button onclick="updateQuantity(${item.id}, 1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-brand-gold hover:bg-yellow-400 text-brand-dark font-black text-base flex items-center justify-center transition-colors">+</button>
+                                                </div>
+                                            </td>
+
+                                            <!-- عمود مربع الإضافات -->
+                                            <td class="py-3 px-4 align-middle">
+                                                <input 
+                                                    type="text" 
+                                                    placeholder="إضافات (مثال: بدون طحينة، زيادة شطة...)" 
+                                                    value="${notes}" 
+                                                    onchange="updateNotes(${item.id}, this.value)" 
+                                                    onkeyup="updateNotes(${item.id}, this.value)" 
+                                                    class="w-full bg-white border border-gray-300 rounded-lg text-xs px-3 py-2 text-gray-800 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold" 
+                                                />
+                                            </td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            updateCartSummary();
+        }
+
+        function updateQuantity(itemId, change) {
+            if (!orderState[itemId]) orderState[itemId] = { quantity: 0, notes: '' };
+            let newQty = orderState[itemId].quantity + change;
+            orderState[itemId].quantity = newQty < 0 ? 0 : newQty;
+            renderMenuItems();
+        }
+
+        function updateNotes(itemId, value) {
+            if (!orderState[itemId]) orderState[itemId] = { quantity: 0, notes: '' };
+            orderState[itemId].notes = value;
+            updateCartSummary();
+        }
+
+        function updateCartSummary() {
+            let totalItems = 0, totalPrice = 0;
+            Object.keys(orderState).forEach(id => {
+                const qty = orderState[id].quantity;
+                if (qty > 0) {
+                    const item = menuData.find(m => m.id == id);
+                    if (item) { totalItems += qty; totalPrice += (item.price * qty); }
+                }
+            });
+            document.getElementById('bar-total-items').innerText = totalItems;
+            document.getElementById('bar-total-price').innerText = `${totalPrice} ج.م`;
+        }
+
+        function clearCurrentOrder() { orderState = {}; renderMenuItems(); }
+
+        function sendOrderToWhatsApp() {
+            const selectedItems = [];
+            let totalPrice = 0;
+
+            Object.keys(orderState).forEach(id => {
+                const qty = orderState[id].quantity, notes = orderState[id].notes;
+                if (qty > 0) {
+                    const item = menuData.find(m => m.id == id);
+                    if (item) {
+                        const itemTotal = item.price * qty;
+                        totalPrice += itemTotal;
+                        let itemText = `• *${item.name}* \n   الكمية: ${qty} | السعر: ${itemTotal} ج.م`;
+                        if (notes.trim() !== '') itemText += `\n   الإضافات: (${notes.trim()})`;
+                        selectedItems.push(itemText);
+                    }
+                }
+            });
+
+            if (selectedItems.length === 0) {
+                alert('فضلاً قم بإضافة أصناف أولاً بالضغط على زر (+).');
+                return;
+            }
+
+            let message = `*طلب جديد من مطعم أبو يحيى*\n------------------------------------\n📍 *الفرع:* فرع الأردنية\n------------------------------------\n*الأصناف:* \n\n${selectedItems.join('\n\n')}\n\n------------------------------------\n💰 *الإجمالي:* ${totalPrice} جنيه مصري\n------------------------------------`;
+            window.open(`https://wa.me/201224213912?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        window.onload = function() { initDots(); showSlide(0); renderCategories(); renderMenuItems(); };
+    </script>
+</body>
+</html>
