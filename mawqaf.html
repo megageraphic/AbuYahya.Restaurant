@@ -167,15 +167,16 @@
         </div>
     </section>
 
+    <!-- قسم المنيوهات تحت بعضها -->
     <section id="menu-section" class="py-8 sm:py-12 bg-white">
         <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+            <div class="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
                 <span class="inline-block px-3 py-1 bg-brand-gold/20 text-brand-dark font-black text-xs rounded-full mb-1 sm:mb-2">📍 فرع الموقف الجديد</span>
-                <h2 class="heading-font text-2xl sm:text-4xl font-black text-brand-dark">قائمة الأصناف والطلب الإلكتروني</h2>
+                <h2 class="heading-font text-2xl sm:text-4xl font-black text-brand-dark">قوائم الأصناف والطلب الإلكتروني</h2>
             </div>
 
-            <div class="flex overflow-x-auto gap-2 pb-3 mb-4 sm:mb-6 custom-scrollbar" id="category-tabs"></div>
-            <div id="menu-items-grid"></div>
+            <!-- حاوية المنيوهات المنفصلة تظهر تحت بعضها -->
+            <div id="menus-container" class="space-y-10"></div>
         </div>
     </section>
 
@@ -194,12 +195,42 @@
             </div>
             <div class="flex items-center gap-1.5 sm:gap-2">
                 <button onclick="clearCurrentOrder()" class="bg-white/10 hover:bg-white/20 text-[11px] sm:text-xs text-gray-200 px-2.5 py-2 sm:px-3 sm:py-3 rounded-xl font-bold">مسح</button>
-                <button onclick="openCustomerModal()" class="bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white font-black px-3 py-2 sm:px-6 sm:py-3 rounded-xl text-xs sm:text-base shadow-lg text-center whitespace-nowrap">إرسال الطلب</button>
+                <button onclick="openReceiptModal()" class="bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white font-black px-3 py-2 sm:px-6 sm:py-3 rounded-xl text-xs sm:text-base shadow-lg text-center whitespace-nowrap">إرسال الطلب</button>
             </div>
         </div>
     </div>
 
-    <!-- نافذة بيانات العميل (Modal) -->
+    <!-- نافذة الريسيت (Receipt Modal) -->
+    <div id="receipt-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 sm:p-6 relative border-2 border-brand-gold animate-fade-in max-h-[90vh] flex flex-col">
+            <button onclick="closeReceiptModal()" class="absolute top-4 left-4 text-gray-400 hover:text-red-600 text-xl font-bold">✕</button>
+            
+            <div class="text-center mb-4 border-b pb-3">
+                <h3 class="heading-font text-xl font-black text-brand-dark">فاتورة الطلب (الريسيت)</h3>
+                <p class="text-xs text-gray-500">مطعم أبو يحيى - فرع الموقف الجديد</p>
+            </div>
+
+            <!-- محتوى الفاتورة -->
+            <div id="receipt-items-list" class="space-y-3 overflow-y-auto flex-1 pr-1 text-right divide-y divide-gray-100 mb-3 max-h-56"></div>
+
+            <div class="bg-brand-cream p-3 rounded-xl border border-brand-gold/40 mb-2 flex justify-between items-center">
+                <span class="font-black text-sm text-brand-dark">إجمالي مبلغ الطلب:</span>
+                <span class="font-black text-lg text-brand-red" id="receipt-total-price">0 ج.م</span>
+            </div>
+
+            <!-- التنويه الخاص بمبلغ التوصيل باللون الأحمر تحت الإجمالي -->
+            <p class="text-red-600 font-bold text-[11px] sm:text-xs mb-4 text-center bg-red-50 p-2 rounded-lg border border-red-200">
+                * يختلف مبلغ التوصيل مع اختلاف المنطقة ويحدد مع الدليفري
+            </p>
+
+            <div class="flex gap-2">
+                <button onclick="closeReceiptModal()" class="w-1/2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2.5 rounded-xl text-xs transition-all">تعديل الطلب</button>
+                <button onclick="proceedToCustomerModal()" class="w-1/2 bg-brand-dark hover:bg-black text-brand-gold font-black py-2.5 rounded-xl text-xs transition-all shadow-md">التالي (بيانات التوصيل)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة بيانات العميل (Customer Modal) -->
     <div id="customer-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 sm:p-6 relative border-2 border-brand-gold animate-fade-in">
             <button onclick="closeCustomerModal()" class="absolute top-4 left-4 text-gray-400 hover:text-red-600 text-xl font-bold">✕</button>
@@ -227,22 +258,20 @@
                 <div>
                     <label class="block text-xs font-bold text-gray-700 mb-1">ملاحظات عامة على الطلب <span class="text-gray-400 font-normal">(اختياري)</span></label>
                     <textarea id="cust-notes" rows="2" placeholder="أي تعليمات خاصة بالسائق أو الطلب..." class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3.5 py-2 text-xs text-gray-800 focus:outline-none focus:border-brand-gold focus:bg-white resize-none"></textarea>
-                    
-                    <!-- التنويه باللون الأحمر -->
-                    <p class="text-red-600 font-bold text-[11px] sm:text-xs mt-2 text-center bg-red-50 p-2 rounded-lg border border-red-200">
-                        * يختلف مبلغ التوصيل مع اختلاف المنطقة ويحدد مع الدليفري
-                    </p>
                 </div>
 
-                <button id="submit-order-btn" disabled onclick="sendOrderToWhatsApp()" class="w-full mt-2 bg-gray-300 text-gray-500 font-black py-3 rounded-xl text-sm transition-all cursor-not-allowed text-center">
-                    تأكيد وإرسال عبر الواتساب
-                </button>
+                <div class="flex gap-2 pt-1">
+                    <button onclick="backToReceipt()" class="w-1/3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 rounded-xl text-xs transition-all">رجوع للريسيت</button>
+                    <button id="submit-order-btn" disabled onclick="sendOrderToWhatsApp()" class="w-2/3 bg-gray-300 text-gray-500 font-black py-3 rounded-xl text-xs transition-all cursor-not-allowed text-center">
+                        تأكيد وإرسال عبر الواتساب
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; جميع الحقوق محفوظة - مطعم أبو يحيي</p>
+        <p>&copy; جميع الحقوق محفوظة - مطعم أبو يحيى</p>
         <div class="footer-credits">
             <span>تصميم بواسطة</span>
             <img src="100.png" alt="شعار التصميم" onerror="this.style.display='none'">
@@ -253,7 +282,7 @@
 
     <script>
         const slideImages = ['20.png', '21.png', '22.png', '23.png', '24.png', '25.png', '26.png', '27.png', '28.png', '29.png', '30.png'];
-        let currentSlideIndex = 0, slideTimer = null, activeCategory = 'الكل', orderState = {};
+        let currentSlideIndex = 0, slideTimer = null, orderState = {};
 
         const menuData = [
             { id: 1, name: 'سندوتش فول بالزبدة البلدي', category: 'أطباق وسندوتشات الفول', price: 15, desc: 'فول مدمس طازج بالزبدة البلدي الصافية' },
@@ -277,7 +306,7 @@
             { id: 19, name: 'باكيت مخلل مشكل بلدي', category: 'الأطباق والوجبات', price: 10, desc: 'تشكيلة مخللات بلدي طازجة' }
         ];
 
-        const categories = ['الكل', 'أطباق وسندوتشات الفول', 'الفلافل الطازجة', 'البطاطس والمقبلات', 'الأطباق والوجبات'];
+        const categories = ['أطباق وسندوتشات الفول', 'الفلافل الطازجة', 'البطاطس والمقبلات', 'الأطباق والوجبات'];
 
         function initDots() {
             const container = document.getElementById('dots-container');
@@ -313,79 +342,85 @@
         function resetTimer() { clearInterval(slideTimer); slideTimer = setInterval(nextSlide, 3500); }
         function handleImageError(img) { img.src = `https://placehold.co/800x500/600000/FFFFFF?text=صورة+مطعم+أبو+يحيى`; }
 
-        function renderCategories() {
-            const container = document.getElementById('category-tabs');
-            container.innerHTML = categories.map(cat => `
-                <button onclick="setCategory('${cat}')" class="whitespace-nowrap px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-black ${
-                    activeCategory === cat ? 'bg-brand-dark text-brand-gold shadow' : 'bg-gray-100 text-gray-700'
-                }">${cat}</button>
-            `).join('');
-        }
+        function renderAllMenus() {
+            const container = document.getElementById('menus-container');
+            
+            container.innerHTML = categories.map(cat => {
+                const items = menuData.filter(item => item.category === cat);
+                
+                let boxStyle = "bg-white rounded-2xl shadow-lg border-2 border-brand-gold/30 overflow-hidden";
+                let tableBg = "bg-brand-cream";
+                
+                if (cat === 'الفلافل الطازجة') {
+                    boxStyle = "bg-white/60 backdrop-blur-md rounded-2xl shadow-xl border-2 border-brand-gold/60 overflow-hidden";
+                    tableBg = "bg-white/40";
+                }
 
-        function setCategory(cat) { activeCategory = cat; renderCategories(); renderMenuItems(); }
+                return `
+                    <div class="${boxStyle}">
+                        <div class="bg-brand-dark px-5 py-4 flex items-center justify-between border-b-2 border-brand-gold">
+                            <div class="flex items-center gap-2.5">
+                                <h3 class="heading-font font-black text-lg sm:text-xl text-brand-yellow">📋 ${cat}</h3>
+                                ${cat === 'الفلافل الطازجة' ? `<img src="23.png" alt="فلافل طازجة" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-brand-gold shadow-md bg-white shrink-0" onerror="this.style.display='none'">` : ''}
+                            </div>
+                            <span class="text-xs font-bold bg-brand-gold/20 text-brand-yellow px-3 py-1 rounded-full border border-brand-gold/40">عدد الأصناف: ${items.length}</span>
+                        </div>
 
-        function renderMenuItems() {
-            const container = document.getElementById('menu-items-grid');
-            const filtered = activeCategory === 'الكل' ? menuData : menuData.filter(item => item.category === activeCategory);
-
-            container.innerHTML = `
-                <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden">
-                    <div class="w-full">
-                        <table class="w-full text-right border-collapse">
-                            <thead class="hidden md:table-header-group">
-                                <tr class="bg-brand-dark text-white text-xs sm:text-sm">
-                                    <th class="py-3.5 px-4 font-bold border-b border-brand-gold/30"> طلب </th>
-                                    <th class="py-3.5 px-4 font-bold text-center border-b border-brand-gold/30 w-32 sm:w-40">الكمية (+ / -)</th>
-                                    <th class="py-3.5 px-4 font-bold border-b border-brand-gold/30 min-w-[180px]"> مربع الإضافات </th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200 block md:table-row-group">
-                                ${filtered.map(item => {
-                                    const itemState = orderState[item.id] || { quantity: 0, notes: '' };
-                                    const qty = itemState.quantity, notes = itemState.notes;
-                                    
-                                    return `
-                                        <tr class="hover:bg-brand-cream/40 transition-colors block md:table-row p-3 md:p-0 ${qty > 0 ? 'bg-brand-cream/60' : ''}">
-                                            <!-- عمود الصنف -->
-                                            <td class="py-1 md:py-3 px-0 md:px-4 align-middle block md:table-cell">
-                                                <div class="flex items-center justify-between gap-2">
-                                                    <span class="heading-font font-bold text-sm sm:text-base text-brand-dark">${item.name}</span>
-                                                    <span class="inline-block bg-brand-red/10 text-brand-red font-black text-xs px-2.5 py-1 rounded-md shrink-0">${item.price} ج.م</span>
-                                                </div>
-                                                ${item.desc ? `<p class="text-[11px] sm:text-xs text-gray-500 mt-0.5">${item.desc}</p>` : ''}
-                                            </td>
-
-                                            <!-- عمود الكمية مع أزرار + و - -->
-                                            <td class="py-2 md:py-3 px-0 md:px-4 align-middle text-center block md:table-cell">
-                                                <div class="flex items-center justify-between md:justify-center gap-1.5 bg-gray-50 p-1.5 rounded-xl border border-gray-200">
-                                                    <span class="md:hidden text-xs font-bold text-gray-600">الكمية:</span>
-                                                    <div class="flex items-center gap-2">
-                                                        <button onclick="updateQuantity(${item.id}, -1)" class="w-8 h-8 rounded-lg bg-gray-200 hover:bg-red-600 hover:text-white text-gray-800 font-black text-lg flex items-center justify-center transition-colors">-</button>
-                                                        <span class="font-black text-sm sm:text-base text-brand-dark w-6 text-center">${qty}</span>
-                                                        <button onclick="updateQuantity(${item.id}, 1)" class="w-8 h-8 rounded-lg bg-brand-gold hover:bg-yellow-400 text-brand-dark font-black text-lg flex items-center justify-center transition-colors">+</button>
+                        <div class="w-full">
+                            <table class="w-full text-right border-collapse">
+                                <thead class="hidden md:table-header-group">
+                                    <tr class="${tableBg} text-brand-dark text-xs sm:text-sm font-bold border-b border-gray-200">
+                                        <th class="py-3 px-4">طلب</th>
+                                        <th class="py-3 px-4 text-center w-32 sm:w-40">الكمية (+ / -)</th>
+                                        <th class="py-3 px-4 min-w-[180px]">مربع الإضافات</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 block md:table-row-group">
+                                    ${items.map(item => {
+                                        const itemState = orderState[item.id] || { quantity: 0, notes: '' };
+                                        const qty = itemState.quantity, notes = itemState.notes;
+                                        
+                                        return `
+                                            <tr class="hover:bg-brand-cream/40 transition-colors block md:table-row p-3 md:p-0 ${qty > 0 ? 'bg-brand-cream/60' : ''}">
+                                                <td class="py-2 md:py-3.5 px-0 md:px-4 align-middle block md:table-cell">
+                                                    <div class="flex items-center justify-between gap-2">
+                                                        <span class="heading-font font-bold text-sm sm:text-base text-brand-dark">${item.name}</span>
+                                                        <span class="inline-block bg-brand-red/10 text-brand-red font-black text-xs px-2.5 py-1 rounded-md shrink-0">${item.price} ج.م</span>
                                                     </div>
-                                                </div>
-                                            </td>
+                                                    ${item.desc ? `<p class="text-[11px] sm:text-xs text-gray-500 mt-0.5">${item.desc}</p>` : ''}
+                                                </td>
 
-                                            <!-- عمود مربع الإضافات -->
-                                            <td class="py-1 md:py-3 px-0 md:px-4 align-middle block md:table-cell">
-                                                <input 
-                                                    type="text" 
-                                                    placeholder="إضافات (مثال: بدون طحينة، زيادة شطة...)" 
-                                                    value="${notes}" 
-                                                    onchange="updateNotes(${item.id}, this.value)" 
-                                                    onkeyup="updateNotes(${item.id}, this.value)" 
-                                                    class="w-full bg-white border border-gray-300 rounded-lg text-xs px-3 py-2 text-gray-800 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold" 
-                                                />
-                                            </td>
-                                        </tr>
-                                    `;
-                                }).join('')}
-                            </tbody>
-                        </table>
+                                                <td class="py-2 md:py-3.5 px-0 md:px-4 align-middle text-center block md:table-cell">
+                                                    <div class="flex items-center justify-between md:justify-center gap-1.5 bg-gray-50/80 p-1.5 rounded-xl border border-gray-200">
+                                                        <span class="md:hidden text-xs font-bold text-gray-600">الكمية:</span>
+                                                        <div class="flex items-center gap-2">
+                                                            <button onclick="updateQuantity(${item.id}, -1)" class="w-8 h-8 rounded-lg bg-gray-200 hover:bg-red-600 hover:text-white text-gray-800 font-black text-lg flex items-center justify-center transition-colors">-</button>
+                                                            <span class="font-black text-sm sm:text-base text-brand-dark w-6 text-center">${qty}</span>
+                                                            <button onclick="updateQuantity(${item.id}, 1)" class="w-8 h-8 rounded-lg bg-brand-gold hover:bg-yellow-400 text-brand-dark font-black text-lg flex items-center justify-center transition-colors">+</button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td class="py-2 md:py-3.5 px-0 md:px-4 align-middle block md:table-cell">
+                                                    <input 
+                                                        type="text" 
+                                                        placeholder="إضافات (مثال: بدون طحينة، زيادة شطة...)" 
+                                                        value="${notes}" 
+                                                        onchange="updateNotes(${item.id}, this.value)" 
+                                                        onkeyup="updateNotes(${item.id}, this.value)" 
+                                                        class="w-full bg-white/90 border border-gray-300 rounded-lg text-xs px-3 py-2 text-gray-800 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold" 
+                                                    />
+                                                </td>
+                                            </tr>
+                                        `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            `;
+                `;
+            }).join('');
+            
             updateCartSummary();
         }
 
@@ -393,7 +428,7 @@
             if (!orderState[itemId]) orderState[itemId] = { quantity: 0, notes: '' };
             let newQty = orderState[itemId].quantity + change;
             orderState[itemId].quantity = newQty < 0 ? 0 : newQty;
-            renderMenuItems();
+            renderAllMenus();
         }
 
         function updateNotes(itemId, value) {
@@ -415,12 +450,33 @@
             document.getElementById('bar-total-price').innerText = `${totalPrice} ج.م`;
         }
 
-        function clearCurrentOrder() { orderState = {}; renderMenuItems(); }
+        function clearCurrentOrder() { orderState = {}; renderAllMenus(); }
 
-        function openCustomerModal() {
+        function openReceiptModal() {
             let hasItems = false;
+            let receiptHtml = '';
+            let totalPrice = 0;
+
             Object.keys(orderState).forEach(id => {
-                if (orderState[id].quantity > 0) hasItems = true;
+                const qty = orderState[id].quantity, notes = orderState[id].notes;
+                if (qty > 0) {
+                    hasItems = true;
+                    const item = menuData.find(m => m.id == id);
+                    if (item) {
+                        const itemTotal = item.price * qty;
+                        totalPrice += itemTotal;
+                        receiptHtml += `
+                            <div class="py-2.5 flex justify-between items-start">
+                                <div>
+                                    <span class="font-bold text-xs sm:text-sm text-brand-dark block">${item.name}</span>
+                                    <span class="text-[11px] text-gray-500">الكمية: ${qty} × ${item.price} ج.م</span>
+                                    ${notes.trim() !== '' ? `<span class="text-[10px] text-brand-red block">إضافات: ${notes}</span>` : ''}
+                                </div>
+                                <span class="font-black text-xs sm:text-sm text-brand-dark">${itemTotal} ج.م</span>
+                            </div>
+                        `;
+                    }
+                }
             });
 
             if (!hasItems) {
@@ -428,8 +484,24 @@
                 return;
             }
 
+            document.getElementById('receipt-items-list').innerHTML = receiptHtml;
+            document.getElementById('receipt-total-price').innerText = `${totalPrice} ج.م`;
+            document.getElementById('receipt-modal').classList.remove('hidden');
+        }
+
+        function closeReceiptModal() {
+            document.getElementById('receipt-modal').classList.add('hidden');
+        }
+
+        function proceedToCustomerModal() {
+            closeReceiptModal();
             document.getElementById('customer-modal').classList.remove('hidden');
             validateCustomerForm();
+        }
+
+        function backToReceipt() {
+            closeCustomerModal();
+            openReceiptModal();
         }
 
         function closeCustomerModal() {
@@ -454,10 +526,10 @@
 
             if (isValid) {
                 submitBtn.disabled = false;
-                submitBtn.className = "w-full mt-2 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white font-black py-3 rounded-xl text-sm shadow-lg transition-all cursor-pointer text-center";
+                submitBtn.className = "w-2/3 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white font-black py-3 rounded-xl text-xs shadow-lg transition-all cursor-pointer text-center";
             } else {
                 submitBtn.disabled = true;
-                submitBtn.className = "w-full mt-2 bg-gray-300 text-gray-500 font-black py-3 rounded-xl text-sm transition-all cursor-not-allowed text-center";
+                submitBtn.className = "w-2/3 bg-gray-300 text-gray-500 font-black py-3 rounded-xl text-xs transition-all cursor-not-allowed text-center";
             }
         }
 
@@ -496,7 +568,7 @@
             window.open(`https://wa.me/201224213912?text=${encodeURIComponent(message)}`, '_blank');
         }
 
-        window.onload = function() { initDots(); showSlide(0); renderCategories(); renderMenuItems(); };
+        window.onload = function() { initDots(); showSlide(0); renderAllMenus(); };
     </script>
 </body>
 </html>
