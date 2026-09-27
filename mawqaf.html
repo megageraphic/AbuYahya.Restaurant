@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts (Cairo Only) -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- مكتبة Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <script>
         tailwind.config = {
@@ -45,7 +47,6 @@
         .glass-header { background: rgba(168, 9, 22, 0.96); backdrop-filter: blur(10px); }
         .slide-fade { transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; }
 
-        /* Footer Custom Styles */
         footer {
             background-color: #1F0203;
             color: #FFF9F5;
@@ -131,7 +132,7 @@
                     </h1>
 
                     <p class="text-xs sm:text-base text-gray-200 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium">
-                        حدد وجباتك، أضف ملحوظاتك الخاصة وإضافاتك لكل صنف، وأرسل الطلب مباشرة إلى الفرع عبر الواتساب.
+                        حدد وجباتك، أضف ملحوظاتك الخاصة وإضافاتك لكل صنف، وأرسل الطلب مباشرة إلى شاشة الاستقبال والمطبخ.
                     </p>
                 </div>
 
@@ -175,7 +176,6 @@
                 <h2 class="heading-font text-2xl sm:text-4xl font-black text-brand-dark">قوائم الأصناف والطلب الإلكتروني</h2>
             </div>
 
-            <!-- حاوية المنيوهات المنفصلة تظهر تحت بعضها -->
             <div id="menus-container" class="space-y-10"></div>
         </div>
     </section>
@@ -195,7 +195,7 @@
             </div>
             <div class="flex items-center gap-1.5 sm:gap-2">
                 <button onclick="clearCurrentOrder()" class="bg-white/10 hover:bg-white/20 text-[11px] sm:text-xs text-gray-200 px-2.5 py-2 sm:px-3 sm:py-3 rounded-xl font-bold">مسح</button>
-                <button onclick="openReceiptModal()" class="bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white font-black px-3 py-2 sm:px-6 sm:py-3 rounded-xl text-xs sm:text-base shadow-lg text-center whitespace-nowrap">إرسال الطلب</button>
+                <button onclick="openReceiptModal()" class="bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white font-black px-3 py-2 sm:px-6 sm:py-3 rounded-xl text-xs sm:text-base shadow-lg text-center whitespace-nowrap">إتمام الطلب</button>
             </div>
         </div>
     </div>
@@ -210,7 +210,6 @@
                 <p class="text-xs text-gray-500">مطعم أبو يحيى - فرع الموقف الجديد</p>
             </div>
 
-            <!-- محتوى الفاتورة -->
             <div id="receipt-items-list" class="space-y-3 overflow-y-auto flex-1 pr-1 text-right divide-y divide-gray-100 mb-3 max-h-56"></div>
 
             <div class="bg-brand-cream p-3 rounded-xl border border-brand-gold/40 mb-2 flex justify-between items-center">
@@ -218,7 +217,6 @@
                 <span class="font-black text-lg text-brand-red" id="receipt-total-price">0 ج.م</span>
             </div>
 
-            <!-- التنويه الخاص بمبلغ التوصيل باللون الأحمر تحت الإجمالي -->
             <p class="text-red-600 font-bold text-[11px] sm:text-xs mb-4 text-center bg-red-50 p-2 rounded-lg border border-red-200">
                 * يختلف مبلغ التوصيل مع اختلاف المنطقة ويحدد مع الدليفري
             </p>
@@ -236,7 +234,7 @@
             <button onclick="closeCustomerModal()" class="absolute top-4 left-4 text-gray-400 hover:text-red-600 text-xl font-bold">✕</button>
             
             <h3 class="heading-font text-xl font-black text-brand-dark mb-1 text-center">تفاصيل توصيل الطلب</h3>
-            <p class="text-xs text-gray-500 mb-4 text-center">يرجى إدخال البيانات التالية لإتمام إرسال الطلب عبر الواتساب</p>
+            <p class="text-xs text-gray-500 mb-4 text-center">يرجى إدخال البيانات التالية لإرسال الطلب لشاشة المطبخ</p>
             
             <div class="space-y-3.5">
                 <div>
@@ -262,8 +260,8 @@
 
                 <div class="flex gap-2 pt-1">
                     <button onclick="backToReceipt()" class="w-1/3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 rounded-xl text-xs transition-all">رجوع للريسيت</button>
-                    <button id="submit-order-btn" disabled onclick="sendOrderToWhatsApp()" class="w-2/3 bg-gray-300 text-gray-500 font-black py-3 rounded-xl text-xs transition-all cursor-not-allowed text-center">
-                        تأكيد وإرسال عبر الواتساب
+                    <button id="submit-order-btn" disabled onclick="sendOrderToSupabase()" class="w-2/3 bg-gray-300 text-gray-500 font-black py-3 rounded-xl text-xs transition-all cursor-not-allowed text-center">
+                        تأكيد وإرسال الطلب أونلاين 🚀
                     </button>
                 </div>
             </div>
@@ -281,6 +279,11 @@
     </footer>
 
     <script>
+        // إعدادات اتصال Supabase
+        const SUPABASE_URL = 'https://ickpsxvowouxnzolsupx.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_X8_pXqZxMsILRfXsRU7atw_mkM1Go4n';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         const slideImages = ['20.png', '21.png', '22.png', '23.png', '24.png', '25.png', '26.png', '27.png', '28.png', '29.png', '30.png'];
         let currentSlideIndex = 0, slideTimer = null, orderState = {};
 
@@ -533,13 +536,14 @@
             }
         }
 
-        function sendOrderToWhatsApp() {
+        // إرسال الطلب مباشرة إلى جدول orders في Supabase السحابي
+        async function sendOrderToSupabase() {
             const name = document.getElementById('cust-name').value.trim();
             const phone = document.getElementById('cust-phone').value.trim();
             const address = document.getElementById('cust-address').value.trim();
             const generalNotes = document.getElementById('cust-notes').value.trim();
 
-            const selectedItems = [];
+            const orderItems = [];
             let totalPrice = 0;
 
             Object.keys(orderState).forEach(id => {
@@ -549,23 +553,47 @@
                     if (item) {
                         const itemTotal = item.price * qty;
                         totalPrice += itemTotal;
-                        let itemText = `• *${item.name}* \n   الكمية: ${qty} | السعر: ${itemTotal} ج.م`;
-                        if (notes.trim() !== '') itemText += `\n   الإضافات: (${notes.trim()})`;
-                        selectedItems.push(itemText);
+                        orderItems.push({
+                            id: item.id,
+                            name: item.name,
+                            price: item.price,
+                            qty: qty,
+                            notes: notes
+                        });
                     }
                 }
             });
 
-            let message = `*طلب جديد من مطعم أبو يحيى*\n------------------------------------\n📍 *الفرع:* فرع الموقف الجديد\n------------------------------------\n👤 *بيانات العميل:*\n• *الاسم:* ${name}\n• *التليفون:* ${phone}\n• *العنوان:* ${address}`;
-            
-            if (generalNotes !== '') {
-                message += `\n• *ملاحظات الطلب:* ${generalNotes}`;
+            // تجهيز نص تفاصيل الطلب ليتم عرضه بوضوح في شاشة الاستقبال
+            let detailsObj = {
+                customer: { name, phone, address, notes: generalNotes },
+                items: orderItems
+            };
+
+            const submitBtn = document.getElementById('submit-order-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "جاري إرسال الطلب للسيرفر...";
+
+            const { data, error } = await supabaseClient
+                .from('orders')
+                .insert([{ 
+                    items_details: JSON.stringify(detailsObj), 
+                    total_price: totalPrice,
+                    order_status: 'جديد'
+                }]);
+
+            if (error) {
+                console.error("خطأ في إرسال الطلب:", error);
+                alert("حدث خطأ أثناء إرسال الطلب، تأكد من الاتصال بالإنترنت.");
+                submitBtn.disabled = false;
+                submitBtn.innerText = "تأكيد وإرسال الطلب أونلاين 🚀";
+            } else {
+                alert("تم إرسال الطلب بنجاح إلى المطبخ وشاشة الاستقبال! 🚀");
+                closeCustomerModal();
+                clearCurrentOrder();
+                submitBtn.disabled = false;
+                submitBtn.innerText = "تأكيد وإرسال الطلب أونلاين 🚀";
             }
-
-            message += `\n------------------------------------\n*الأصناف:* \n\n${selectedItems.join('\n\n')}\n\n------------------------------------\n💰 *الإجمالي:* ${totalPrice} جنيه مصري\n------------------------------------`;
-
-            closeCustomerModal();
-            window.open(`https://wa.me/201224213912?text=${encodeURIComponent(message)}`, '_blank');
         }
 
         window.onload = function() { initDots(); showSlide(0); renderAllMenus(); };
